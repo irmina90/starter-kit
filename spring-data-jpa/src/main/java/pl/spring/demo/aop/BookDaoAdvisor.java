@@ -1,12 +1,14 @@
 package pl.spring.demo.aop;
 
 
+import java.lang.reflect.Method;
+
 import org.springframework.aop.MethodBeforeAdvice;
+
 import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.exception.BookNotNullIdException;
 import pl.spring.demo.to.IdAware;
 
-import java.lang.reflect.Method;
 
 public class BookDaoAdvisor implements MethodBeforeAdvice {
 

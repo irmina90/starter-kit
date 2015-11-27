@@ -4,6 +4,8 @@ import pl.spring.demo.to.IdAware;
 
 import java.util.Collection;
 
+import org.springframework.stereotype.Component;
+
 public class Sequence {
 
     public long nextValue(Collection<? extends IdAware> existingIds) {

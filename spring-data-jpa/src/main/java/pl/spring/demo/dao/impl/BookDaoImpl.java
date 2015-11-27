@@ -1,14 +1,15 @@
 package pl.spring.demo.dao.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.to.BookTo;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class BookDaoImpl implements BookDao {
 
@@ -45,6 +46,7 @@ public class BookDaoImpl implements BookDao {
         return book;
     }
 
+ 
     public void setSequence(Sequence sequence) {
         this.sequence = sequence;
     }

@@ -6,6 +6,10 @@ import pl.spring.demo.to.BookTo;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service("bookService")
 public class BookServiceImpl implements BookService {
 
     private BookDao bookDao;
@@ -30,6 +34,7 @@ public class BookServiceImpl implements BookService {
         return bookDao.save(book);
     }
 
+    @Autowired
     public void setBookDao(BookDao bookDao) {
         this.bookDao = bookDao;
     }
