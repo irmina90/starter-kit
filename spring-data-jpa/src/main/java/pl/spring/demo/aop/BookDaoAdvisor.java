@@ -26,7 +26,8 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
         }
     }
 
-    private boolean hasAnnotation (Method method, Object o, Class annotationClazz) throws NoSuchMethodException {
+    @SuppressWarnings("unchecked")
+	private boolean hasAnnotation (Method method, Object o, Class annotationClazz) throws NoSuchMethodException {
         boolean hasAnnotation = method.getAnnotation(annotationClazz) != null;
 
         if (!hasAnnotation && o != null) {

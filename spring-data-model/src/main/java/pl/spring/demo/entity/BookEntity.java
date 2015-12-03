@@ -3,8 +3,9 @@ package pl.spring.demo.entity;
 import java.util.List;
 
 import pl.spring.demo.to.AuthorTo;
+import pl.spring.demo.to.IdAware;
 
-public class BookEntity {
+public class BookEntity implements IdAware {
     private Long id;
     private String title;
     private List<AuthorTo> authors;
