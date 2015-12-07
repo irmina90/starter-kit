@@ -18,30 +18,30 @@ import pl.spring.demo.to.IdAware;
 
 @Component
 @Aspect
-public class BookDaoAdvisor  {
-	
+public class BookDaoAdvisor {
+
 	private BookDao bookDao;
 	private Sequence sequence;
-	
+
 	@Before("execution(* pl.spring.demo.dao.impl.BookDaoImpl.save(..))")
 	public void checkBookId(JoinPoint joinPoint) throws Throwable {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-		Method method = signature.getMethod();	
-		
+		Method method = signature.getMethod();
+
 		Object object = joinPoint.getArgs()[0];
-		
+
 		if (hasAnnotation(method, joinPoint.getTarget(), NullableId.class)) {
 			checkNotNullId(object);
 			setBookId(object);
-		}	
+		}
 	}
-	
+
 	private void setBookId(Object o) {
 		if (o instanceof BookEntity && ((BookEntity) o).getId() == null) {
 			((BookEntity) o).setId(sequence.nextValue(bookDao.findAll()));
 		}
 	}
-	
+
 	private void checkNotNullId(Object o) {
 		if (o instanceof IdAware && ((IdAware) o).getId() != null) {
 			throw new BookNotNullIdException();
@@ -58,15 +58,15 @@ public class BookDaoAdvisor  {
 		}
 		return hasAnnotation;
 	}
-	
-    @Autowired
-    public void setSequence(Sequence sequence) {
-        this.sequence = sequence;
-    }
-    
-    @Autowired
-    public void setBookDao(BookDao bookDao) {
-        this.bookDao = bookDao;
-    }
+
+	@Autowired
+	public void setSequence(Sequence sequence) {
+		this.sequence = sequence;
+	}
+
+	@Autowired
+	public void setBookDao(BookDao bookDao) {
+		this.bookDao = bookDao;
+	}
 
 }

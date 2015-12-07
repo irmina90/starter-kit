@@ -13,38 +13,38 @@ import pl.spring.demo.to.BookTo;
 @Service("bookService")
 public class BookServiceImpl implements BookService {
 
-    private BookDao bookDao;
-    private BookMapper bookMapper;
+	private BookDao bookDao;
+	private BookMapper bookMapper;
 
-    @Override
-    public List<BookTo> findAllBooks() {
-        return bookMapper.map2To(bookDao.findAll());
-    }
+	@Override
+	public List<BookTo> findAllBooks() {
+		return bookMapper.map2To(bookDao.findAll());
+	}
 
-    @Override
-    public List<BookTo> findBooksByTitle(String title) {
-        return bookMapper.map2To(bookDao.findBookByTitle(title));
-    }
+	@Override
+	public List<BookTo> findBooksByTitle(String title) {
+		return bookMapper.map2To(bookDao.findBookByTitle(title));
+	}
 
-    @Override
-    public List<BookTo> findBooksByAuthor(String author) {
-        return bookMapper.map2To(bookDao.findBooksByAuthor(author));
-    }
+	@Override
+	public List<BookTo> findBooksByAuthor(String author) {
+		return bookMapper.map2To(bookDao.findBooksByAuthor(author));
+	}
 
-    @Override
-    public BookTo saveBook(BookTo book) {
-    	 return bookMapper.map(bookDao.save(bookMapper.map(book)));	
-    }
+	@Override
+	public BookTo saveBook(BookTo book) {
+		return bookMapper.map(bookDao.save(bookMapper.map(book)));
+	}
 
-    @Autowired
-    public void setBookDao(BookDao bookDao) {
-        this.bookDao = bookDao;
-    }
+	@Autowired
+	public void setBookDao(BookDao bookDao) {
+		this.bookDao = bookDao;
+	}
 
-    @Autowired
+	@Autowired
 	public void setBookMapper(BookMapper bookMapper) {
 		this.bookMapper = bookMapper;
-		
+
 	}
-	
+
 }

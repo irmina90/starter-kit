@@ -30,36 +30,35 @@ import pl.spring.demo.to.BookTo;
  */
 public class BookServiceImplTest {
 
-    @InjectMocks
-    private BookServiceImpl bookService;
-    @Mock
-    private BookDao bookDao;
-    @Mock
-    private BookMapper bookMapper;
+	@InjectMocks
+	private BookServiceImpl bookService;
+	@Mock
+	private BookDao bookDao;
+	@Mock
+	private BookMapper bookMapper;
 
-    @Before
-    public void setUpt() {
-        MockitoAnnotations.initMocks(this);
-    }
+	@Before
+	public void setUpt() {
+		MockitoAnnotations.initMocks(this);
+	}
 
-    @Test
-    public void testShouldSaveBook() { 
-        // given
-        BookTo bookTo1 = new BookTo(null, "title", "author");
-        BookTo bookTo2 = new BookTo(1L, "title", "author");
-        
-        BookEntity bookEntity1 = new BookEntity(null, "title",  Arrays.asList(new AuthorTo(null, "author", null)));
-        BookEntity bookEntity2 = new BookEntity(1L, "title",  Arrays.asList(new AuthorTo(null, "author", null)));
-        
-        Mockito.when(bookDao.save(bookEntity1)).thenReturn(bookEntity2);
-        Mockito.when(bookMapper.map(bookEntity2)).thenReturn(bookTo2);
-        Mockito.when(bookMapper.map(bookTo1)).thenReturn(bookEntity1);
-        // when
-        BookTo result = bookService.saveBook(bookTo1);
-        // then
-        Mockito.verify(bookDao).save(bookEntity1);
-        Mockito.verify(bookMapper).map(bookEntity2);
-        assertEquals(1L, result.getId().longValue());
-    }
-}	
+	@Test
+	public void testShouldSaveBook() {
+		// given
+		BookTo bookTo1 = new BookTo(null, "title", "author");
+		BookTo bookTo2 = new BookTo(1L, "title", "author");
 
+		BookEntity bookEntity1 = new BookEntity(null, "title", Arrays.asList(new AuthorTo(null, "author", null)));
+		BookEntity bookEntity2 = new BookEntity(1L, "title", Arrays.asList(new AuthorTo(null, "author", null)));
+
+		Mockito.when(bookDao.save(bookEntity1)).thenReturn(bookEntity2);
+		Mockito.when(bookMapper.map(bookEntity2)).thenReturn(bookTo2);
+		Mockito.when(bookMapper.map(bookTo1)).thenReturn(bookEntity1);
+		// when
+		BookTo result = bookService.saveBook(bookTo1);
+		// then
+		Mockito.verify(bookDao).save(bookEntity1);
+		Mockito.verify(bookMapper).map(bookEntity2);
+		assertEquals(1L, result.getId().longValue());
+	}
+}
