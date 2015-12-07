@@ -1,37 +1,44 @@
 package pl.spring.demo.aop;
 
 import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.sound.midi.Sequence;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.aop.MethodBeforeAdvice;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import pl.spring.demo.annotation.NullableId;
+import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
-import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.exception.BookNotNullIdException;
-import pl.spring.demo.to.BookTo;
 import pl.spring.demo.to.IdAware;
 
 @Component
 @Aspect
-public class BookDaoAdvisor implements MethodBeforeAdvice {
+public class BookDaoAdvisor  {
 	
-	@Override
-	public void before(Method method, Object[] objects, Object o) throws Throwable {
-
-		if (hasAnnotation(method, o, NullableId.class)) {
-			checkNotNullId(objects[0]);
+	private BookDao bookDao;
+	private Sequence sequence;
+	
+	@Before("execution(* pl.spring.demo.dao.impl.BookDaoImpl.save(..))")
+	public void checkBookId(JoinPoint joinPoint) throws Throwable {
+		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+		Method method = signature.getMethod();	
+		
+		Object object = joinPoint.getArgs()[0];
+		
+		if (hasAnnotation(method, joinPoint.getTarget(), NullableId.class)) {
+			checkNotNullId(object);
+			setBookId(object);
+		}	
+	}
+	
+	private void setBookId(Object o) {
+		if (o instanceof BookEntity && ((BookEntity) o).getId() == null) {
+			((BookEntity) o).setId(sequence.nextValue(bookDao.findAll()));
 		}
 	}
 	
@@ -43,7 +50,6 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
 
 	@SuppressWarnings("unchecked")
 	private boolean hasAnnotation(Method method, Object o, Class annotationClazz) throws NoSuchMethodException {
-		@SuppressWarnings("unchecked")
 		boolean hasAnnotation = method.getAnnotation(annotationClazz) != null;
 
 		if (!hasAnnotation && o != null) {
@@ -52,5 +58,15 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
 		}
 		return hasAnnotation;
 	}
+	
+    @Autowired
+    public void setSequence(Sequence sequence) {
+        this.sequence = sequence;
+    }
+    
+    @Autowired
+    public void setBookDao(BookDao bookDao) {
+        this.bookDao = bookDao;
+    }
 
 }

@@ -14,7 +14,7 @@ public class BookMapper {
 	    
 	public BookEntity map(BookTo bookTo) {	
 		if(bookTo == null) return null;
-		return new BookEntity(null,bookTo.getTitle(),convertToList(bookTo.getAuthors()));
+		return new BookEntity(bookTo.getId(),bookTo.getTitle(),convertToList(bookTo.getAuthors()));
 	}
 
 	public BookTo map(BookEntity bookEntity) {

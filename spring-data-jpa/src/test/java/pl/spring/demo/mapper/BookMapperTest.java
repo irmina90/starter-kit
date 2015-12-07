@@ -6,21 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.to.AuthorTo;
 import pl.spring.demo.to.BookTo;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "BookMapperTest-context.xml")
 public class BookMapperTest {
 
-	@Autowired
-	private BookMapper bookMapper;
+	private BookMapper bookMapper = new BookMapper();
 	
     @Test
     public void testShouldConvertBookTo() {
@@ -30,16 +23,15 @@ public class BookMapperTest {
     	BookEntity bookEntityExpected = new BookEntity(1L, "Metro 2035", Arrays.asList(new AuthorTo(1L,"Dmitry","Glukhovsky")));
     	BookEntity result = bookMapper.map(bookTo);
     	//then
-        assertEquals(null, result.getId());
+        assertEquals(Long.valueOf(1), result.getId());
         assertEquals(bookEntityExpected.getTitle(), result.getTitle());
         assertEquals(bookEntityExpected.getAuthors().get(0).getId(), result.getAuthors().get(0).getId());
     }
     
-    
     @Test
-    public void testShouldConvertBookTo2() {
+    public void testShouldConvertBookToWithNullId() {
     	//given
-    	BookTo bookTo = new BookTo(1L, "Metro 2035", "Dmitry Glukhovsky");
+    	BookTo bookTo = new BookTo(null, "Metro 2035", "Dmitry Glukhovsky");
         //when
     	BookEntity bookEntityExpected = new BookEntity(1L, "Metro 2035", Arrays.asList(new AuthorTo(1L,"Dmitry","Glukhovsky")));
     	BookEntity result = bookMapper.map(bookTo);
@@ -92,6 +84,7 @@ public class BookMapperTest {
         assertEquals(bookEntityExpected.get(0).getTitle(), result.get(0).getTitle());
         assertEquals(bookEntityExpected.get(0).getAuthors().get(0).getFirstName(), result.get(0).getAuthors().get(0).getFirstName());
     }
+
 }
 
 

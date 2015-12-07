@@ -85,6 +85,8 @@ public class BookServiceImplTest {
     public void testShouldThrowBookNotNullIdException() {
         // given
         final BookTo bookToSave = new BookTo();
+        bookToSave.setTitle("title");
+        bookToSave.setAuthors("imie nazwisko");
         bookToSave.setId(22L);
         // when
         bookService.saveBook(bookToSave);

@@ -20,26 +20,4 @@
 
 	<aop:aspectj-autoproxy />
 
-	<!-- <aop:config> <aop:aspect ref="loggerAspect" > <aop:before method="myAdvice" 
-		pointcut="execution(* pl.spring.demo.mapper.BookMapper.*(..))"/> </aop:aspect> 
-		</aop:config> -->
-
-	<!-- <bean id="bookService" class="pl.spring.demo.service.impl.BookServiceImpl"> 
-		<property name="bookDao" ref="bookDao"/> </bean> -->
-
-	<!-- <bean id="sequence" class="pl.spring.demo.common.Sequence"/> -->
-
-	<!-- AOP -->
-
-	<!-- <bean id="bookDaoAdvisor" class="pl.spring.demo.aop.BookDaoAdvisor"/> -->
-
-	<bean id="bookDao" class="org.springframework.aop.framework.ProxyFactoryBean">
-		<property name="interceptorNames">
-			<list>
-				<value>bookDaoAdvisor</value>
-			</list>
-		</property>
-	</bean>
-
-
 </beans>

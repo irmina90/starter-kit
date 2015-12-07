@@ -8,17 +8,13 @@ package pl.spring.demo.mock;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.BookEntity;
@@ -47,7 +43,7 @@ public class BookServiceImplTest {
     }
 
     @Test
-    public void testShouldSaveBook() {
+    public void testShouldSaveBook() { 
         // given
         BookTo bookTo1 = new BookTo(null, "title", "author");
         BookTo bookTo2 = new BookTo(1L, "title", "author");
@@ -65,5 +61,5 @@ public class BookServiceImplTest {
         Mockito.verify(bookMapper).map(bookEntity2);
         assertEquals(1L, result.getId().longValue());
     }
-}
+}	
 
