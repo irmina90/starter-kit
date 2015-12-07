@@ -19,6 +19,7 @@ public class BookEntity implements IdAware {
         this.authors = authors;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -42,4 +43,5 @@ public class BookEntity implements IdAware {
     public void setAuthors(List<AuthorTo> authors) {
         this.authors = authors;
     }
+
 }

@@ -79,6 +79,7 @@ public class BookServiceImplTest {
         assertFalse(booksByAuthor.isEmpty());
         
     }
+    
 
     @Test(expected = BookNotNullIdException.class)
     public void testShouldThrowBookNotNullIdException() {

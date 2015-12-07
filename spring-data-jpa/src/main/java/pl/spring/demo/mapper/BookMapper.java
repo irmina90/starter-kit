@@ -12,10 +12,6 @@ import pl.spring.demo.to.BookTo;
 @Component
 public class BookMapper {
 	    
-	public BookMapper() {
-		
-	}
-	
 	public BookEntity map(BookTo bookTo) {	
 		if(bookTo == null) return null;
 		return new BookEntity(null,bookTo.getTitle(),convertToList(bookTo.getAuthors()));

@@ -13,4 +13,5 @@ public interface BookDao {
     List<BookEntity> findBooksByAuthor(String author);
 
     BookEntity save(BookEntity book);
+
 }

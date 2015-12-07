@@ -7,13 +7,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.to.AuthorTo;
 
-
+@Component
 public class BookDaoImpl implements BookDao {
 
    private final Set<BookEntity> ALL_BOOKS = new HashSet<>();
@@ -61,7 +64,7 @@ public class BookDaoImpl implements BookDao {
         return book;
     }
 
- 
+    @Autowired
     public void setSequence(Sequence sequence) {
         this.sequence = sequence;
     }

@@ -3,6 +3,9 @@ package pl.spring.demo.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Service;
 
 import pl.spring.demo.dao.BookDao;
@@ -11,6 +14,9 @@ import pl.spring.demo.mapper.BookMapper;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 
+@Configuration
+@ComponentScan("pl.spring.demo")
+@EnableAspectJAutoProxy
 @Service("bookService")
 public class BookServiceImpl implements BookService {
 
