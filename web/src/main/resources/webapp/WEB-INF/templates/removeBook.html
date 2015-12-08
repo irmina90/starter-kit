@@ -2,15 +2,21 @@
 <html xmlns:th="http://thymeleaf.org">
 <head lang="en">
 <meta charset="UTF-8" />
-<title>Ksiazka zostala usunieta</title>
+<title>Usunięcie książki</title>
 <link rel="stylesheet" th:href="@{/static/application.css}"
 	href="/static/application.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 </head>
 <body>
-	<p th:inline="text">Ksiazka o tytule [[${removedBook.title}]]
-		została usunięta</p>
-	<div>
-		<td><a th:href="@{/books}">Back to the list</a></td>
+	<div class="container">
+		<div class="alert alert-success" role="alert" th:inline="text">Książka o tytule <p class="bookTitle">[[${removedBook.title}]]</p> została usunięta. <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></div>
+		<a th:href="@{/books}">
+			<button type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				Powrót do listy książek
+			</button>
+		</a>
 	</div>
 </body>
 </html>

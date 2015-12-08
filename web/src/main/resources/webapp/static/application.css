@@ -2,15 +2,31 @@
     color: red;
 }
 
-table {
-    border-collapse: collapse;
+.glyphicon-remove {
+	color: black;
+	text-align: center;
+	display: block;
 }
 
-table, th, td {
-    border: 1px solid black;
+.glyphicon-remove:hover {
+	color: #007d93;
 }
 
-.booksList img {
-	width: 20px;
-	height: 20px;
+.table.table-bordered th {
+	color: white;
+	background-color: #007d93;
+	
+}
+
+.table.table-bordered tr:nth-of-type(n+2):hover {
+	background-color: #ccf0f6;
+}
+
+.bookTitle {
+	font-weight: bold;
+	display: inline;
+}
+
+.alert.alert-success {
+	text-align: center;
 }

@@ -32,6 +32,6 @@ public class BookRestService {
     
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public BookTo removeBook(@RequestBody BookTo book) {
-        return bookService.removeBook(book.getId().longValue());
+        return bookService.removeBook(book.getId());
     }
 }
