@@ -115,21 +115,5 @@ public class BookRestServiceTest {
         // then
         response.andExpect(status().isOk());
     }
-   
-    
-    @Test
-    public void testShouldDeleteBook() {
-        // given
-    	BookTo bookToDelete = new BookTo(1L, "Title", "FirstName LastName");
-    	Mockito.when(bookService.removeBook(1L)).thenReturn(bookToDelete);
-        // when
-        /*ResultActions response = this.mockMvc.perform(delete("/delete?titlePrefix=" + bookTitle)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON));*/
-        // then
-      //  Mockito.verify(bookService).findBooksByTitle(bookTitle);
-       // response.andExpect(status().isOk());
-
-    }
     
 }
