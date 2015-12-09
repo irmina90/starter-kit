@@ -3,8 +3,7 @@
 <head lang="en">
 <meta charset="UTF-8" />
 <title>Lista książek</title>
-<link rel="stylesheet" th:href="@{/static/application.css}"
-	href="/static/application.css" />
+<link rel="stylesheet" th:href="@{/static/application.css}" href="/static/application.css" />
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 </head>
@@ -22,7 +21,11 @@
 				<td th:text="${book.id}">id</td>
 				<td th:text="${book.title}">title</td>
 				<td th:text="${book.authors}">authors</td>
-				<td><a th:href="@{/removeBook(id=${book.id})}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+				<td>
+				<form th:action="@{/removeBook(id=${book.id})}" method="post">
+					<button class="btn btn-default" type="submit">Delete <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+				</form>
+				</td>
 			</tr>
 		</table>
 	</div>
