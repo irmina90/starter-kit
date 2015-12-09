@@ -17,44 +17,15 @@ import org.springframework.web.context.WebApplicationContext;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 import pl.spring.demo.web.utils.FileUtils;
-
 import java.io.File;
 import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-package pl.spring.demo.web.rest;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import pl.spring.demo.service.BookService;
-import pl.spring.demo.to.BookTo;
-import pl.spring.demo.web.utils.FileUtils;
-
-import java.io.File;
-import java.util.Arrays;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -116,4 +87,34 @@ public class BookRestServiceTest {
         response.andExpect(status().isOk());
     }
     
+    @Test
+    public void testShouldDeleteBook() throws Exception {
+        // given
+    	final Long id = 1L;
+    	final BookTo bookToDelete = new BookTo(id, "Title", "FirstName LastName");
+    	Mockito.when(bookService.removeBook(id)).thenReturn(bookToDelete);
+        // when
+        ResultActions response = this.mockMvc.perform(delete("/delete?id=" + id)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON));
+        // then
+        response.andExpect(status().isOk())
+	        .andExpect(jsonPath("id").value(bookToDelete.getId().intValue()))
+	        .andExpect(jsonPath("title").value(bookToDelete.getTitle()))
+	        .andExpect(jsonPath("authors").value(bookToDelete.getAuthors()));
+    }
+    
+    @Test
+    public void testShouldDeleteBookFromFile() throws Exception {
+        // given
+        File file = FileUtils.getFileFromClasspath("classpath:pl/spring/demo/web/json/bookToDelete.json");
+        String json = FileUtils.readFileToString(file);
+        // when
+        ResultActions response = this.mockMvc.perform(delete("/delete?id=" + json)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json.getBytes()));
+        // then
+        response.andExpect(status().isOk());
+    }
 }
