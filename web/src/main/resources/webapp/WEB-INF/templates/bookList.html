@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head lang="en">
+<meta charset="UTF-8" />
+<title>Lista książek</title>
+<link rel="stylesheet" th:href="@{/static/application.css}"
+	href="/static/application.css" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+</head>
+<body>
+	<div class="container">
+		<h2>Lista książek</h2>
+		<table class="table table-bordered">
+			<tr>
+				<th>Id</th>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Delete</th>
+			</tr>
+			<tr th:each="book : ${books}">
+				<td th:text="${book.id}">id</td>
+				<td th:text="${book.title}">title</td>
+				<td th:text="${book.authors}">authors</td>
+				<td><a th:href="@{/removeBook(id=${book.id})}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
