@@ -30,7 +30,7 @@ public class BookRestService {
     	return bookService.saveBook(book);
     }
     
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/book", method = RequestMethod.DELETE)
     public BookTo removeBook(@RequestParam("id") Long id) {
         return bookService.removeBook(id);
     }
